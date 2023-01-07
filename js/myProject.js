@@ -39,6 +39,7 @@ var g2 = new THREE.PlaneBufferGeometry(2000, 2000, 8, 8);
 var m2 = new THREE.MeshStandardMaterial({ color: '#a18787', side: THREE.DoubleSide });
 var plane = new THREE.Mesh(g2, m2);
 plane.rotateX( - Math.PI / 2);
+plane.translateY(1);
 plane.receiveShadow = true;
 
 scene.add(plane);
@@ -49,11 +50,14 @@ const light = new THREE.AmbientLight( 0xdedede, 1.5);
 light.castShadow = true;
 scene.add(light);
 
-const lightPoint = new THREE.PointLight( 0xdedede, 2, 30 );
-lightPoint.position.set(0,30,0);
+const lightPoint = new THREE.PointLight( 0xc9e4ff, 1 );
+lightPoint.position.set(0,100,0);
 lightPoint.lookAt(0,0,0);
 lightPoint.castShadow = true;
 scene.add(lightPoint);
+
+const lightHelper = new THREE.PointLightHelper(lightPoint,2,'#a18787')
+scene.add(lightHelper)
 
 //Controls
 
@@ -65,9 +69,9 @@ fbxLoader.load('../assets/model.fbx', (object) => {
         if ( node instanceof THREE.Mesh ) { 
             node.castShadow = true; 
             node.receiveShadow = true;
-            // node.material.side = THREE.DoubleSide;
+            node.material.side = THREE.DoubleSide;
         } } );
-    object.translateY(0.01);
+
     scene.add(object)
 }
 );
