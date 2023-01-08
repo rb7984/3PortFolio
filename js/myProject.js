@@ -69,6 +69,14 @@ fbxLoader.load('../assets/model.fbx', (object) => {
         if ( node instanceof THREE.Mesh ) { 
             node.castShadow = true; 
             node.receiveShadow = true;
+
+            const oldMat = node.material;
+
+            node.material = new THREE.MeshStandardMaterial( {  
+               color: oldMat.color,
+               map: oldMat.map,
+               
+            } );
             
         } } );
 
