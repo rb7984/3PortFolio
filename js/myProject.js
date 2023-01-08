@@ -51,8 +51,8 @@ light.castShadow = true;
 scene.add(light);
 
 const lightPoint = new THREE.PointLight( 0xc9e4ff, 1 );
-lightPoint.position.set(0,100,0);
-lightPoint.lookAt(0,0,0);
+lightPoint.position.set(0, 100,0);
+lightPoint.lookAt(0, 0, 0);
 lightPoint.castShadow = true;
 scene.add(lightPoint);
 
@@ -69,7 +69,7 @@ fbxLoader.load('../assets/model.fbx', (object) => {
         if ( node instanceof THREE.Mesh ) { 
             node.castShadow = true; 
             node.receiveShadow = true;
-            node.material.side = THREE.DoubleSide;
+            
         } } );
 
     scene.add(object)
