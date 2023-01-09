@@ -62,12 +62,12 @@ scene.add(lightHelper)
 //Controls
 
 // const controls = new OrbitControls(camera, renderer.domElement);
-const cPX = [0,50,-50,50,-50];
-const cPY = [100,100,100,100,100];
-const cPZ = [0,50,-50,50,-50];
+
+const cP = [[50,50,50],[50,50,-50],[-50,50,-50],[-50,50,50]]
 var cPC = 0;
 window.addEventListener('mousedown',(event) => {
-    camera.position.set(cPX[cPC%5],cPY[cPC%5],cPZ[cPC%5]);
+    camera.position.set(cP[cPC%4][0],cP[cPC%4][1],cP[cPC%4][2]);
+    camera.lookAt(0,0,0);
     cPC += 1;
 });
 
@@ -77,17 +77,16 @@ fbxLoader.load('../assets/model.fbx', (object) => {
         if ( node instanceof THREE.Mesh ) {
             node.castShadow = true; 
             node.receiveShadow = true;
-
+            
             const oldMat = node.material;
-
+            
             node.material = new THREE.MeshStandardMaterial( {  
-               color: oldMat.color,
-               map: oldMat.map,
-               
+                color: oldMat.color,
+                map: oldMat.map,
             } );
             
         } } );
-
+    
     scene.add(object)
 }
 );
