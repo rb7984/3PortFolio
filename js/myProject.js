@@ -62,29 +62,14 @@ scene.add(lightHelper)
 //Controls
 
 // const controls = new OrbitControls(camera, renderer.domElement);
-const cPX = [50,-50,-50,50];
-const cPY = [50,50,50,50];
-const cPZ = [50,50,-50,-50];
-var cPC = 4;
-
-function ChangeView(a) {
-    camera.position.set(cPX[cPC%4],cPY[cPC%4],cPZ[cPC%4]);
-    camera.lookAt(0,0,0);
-    if (a) cPC += 1;
-    else cPC -= 1;
-}
-
-document.getElementById('previous').onclick = function () {
-    ChangeView(false);
-};
-document.getElementById('next').onclick = function () {
-    ChangeView(true);
-};
-
-// window.addEventListener('mousedown',(event) => {
-//     camera.position.set(cPX[cPC%5],cPY[cPC%5],cPZ[cPC%5]);
-//     cPC += 1;
-// });
+const cPX = [0,50,-50,50,-50];
+const cPY = [100,100,100,100,100];
+const cPZ = [0,50,-50,50,-50];
+var cPC = 0;
+window.addEventListener('mousedown',(event) => {
+    camera.position.set(cPX[cPC%5],cPY[cPC%5],cPZ[cPC%5]);
+    cPC += 1;
+});
 
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
@@ -92,17 +77,16 @@ fbxLoader.load('../assets/model.fbx', (object) => {
         if ( node instanceof THREE.Mesh ) {
             node.castShadow = true; 
             node.receiveShadow = true;
-
+            
             const oldMat = node.material;
-
+            
             node.material = new THREE.MeshStandardMaterial( {  
-               color: oldMat.color,
-               map: oldMat.map,
-               
+                color: oldMat.color,
+                map: oldMat.map,
             } );
             
         } } );
-
+    
     scene.add(object)
 }
 );
