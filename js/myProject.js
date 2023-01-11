@@ -6,7 +6,7 @@ import {InteractionManager} from './three.interactive.js';
 const container = document.querySelector('#scene-container');
 export const scene = new THREE.Scene();
 
-// clock = new THREE.Clock();
+var clock = new THREE.Clock();
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -111,9 +111,30 @@ fbxLoader.load('../assets/model.fbx', (object) => {
 }
 );
 
+//Orbit Controls
+
+const orbitingCircle = new THREE.CircleGeometry(50,50);
+orbitingCircle.rotateX( - Math.PI / 2);
+orbitingCircle.translate(0,10,0);
+var ppp = new THREE.Mesh(orbitingCircle, m2);
+scene.add(ppp)
+
+function updateCamera(){
+    const time = clock.getElapsedTime();
+    const looptime = 30;
+    const t = ( time % looptime ) / looptime;
+    const t2 = ( (time + 0.1) % looptime) / looptime
+    
+    // const pos = orbitingCircle.parameters.segments.
+    // const pos2 = orbitingCircle.geometry.parameters.path.getPointAt( t2 );
+    
+    // camera.position.copy(pos);
+    // camera.lookAt(pos2);
+}
+
 function animate() {
 	requestAnimationFrame( animate );
-    
+    updateCamera();
     interactionManager.update();
     // controls.update();
 	renderer.render( scene, camera );
@@ -121,18 +142,7 @@ function animate() {
 
 animate();
 
-// function updateCamera(){
-//     const time = clock.getElapsedTime();
-//     const looptime = 20;
-//     const t = ( time % looptime ) / looptime;
-//     const t2 = ( (time + 0.1) % looptime) / looptime
-    
-//     const pos = tube.geometry.parameters.path.getPointAt( t );
-//     const pos2 = tube.geometry.parameters.path.getPointAt( t2 );
-    
-//     camera.position.copy(pos);
-//     camera.lookAt(pos2);
-// }
+
 
 // function update(){
 //     requestAnimationFrame( update );
