@@ -6,6 +6,8 @@ import {InteractionManager} from './three.interactive.js';
 const container = document.querySelector('#scene-container');
 export const scene = new THREE.Scene();
 
+// clock = new THREE.Clock();
+
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 camera.position.set(-50,50,-50);
@@ -118,3 +120,22 @@ function animate() {
 };
 
 animate();
+
+// function updateCamera(){
+//     const time = clock.getElapsedTime();
+//     const looptime = 20;
+//     const t = ( time % looptime ) / looptime;
+//     const t2 = ( (time + 0.1) % looptime) / looptime
+    
+//     const pos = tube.geometry.parameters.path.getPointAt( t );
+//     const pos2 = tube.geometry.parameters.path.getPointAt( t2 );
+    
+//     camera.position.copy(pos);
+//     camera.lookAt(pos2);
+// }
+
+// function update(){
+//     requestAnimationFrame( update );
+//     updateCamera();
+//     renderer.render( scene, camera );  
+// }
