@@ -2,6 +2,7 @@ import * as THREE from './three.module.js';
 import {OrbitControls} from './OrbitControls.js';
 import {FBXLoader} from './FBXLoader.js';
 import {InteractionManager} from './three.interactive.js';
+import * as gsap from './gsap.min.js';
 
 const container = document.querySelector('#scene-container');
 export const scene = new THREE.Scene();
@@ -63,7 +64,7 @@ scene.add(lightHelper)
 
 //Controls
 
-// const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 const cPX = [50,-50,-50,50];
 const cPY = [50,50,50,50];
 const cPZ = [50,50,-50,-50];
@@ -113,39 +114,13 @@ fbxLoader.load('../assets/model.fbx', (object) => {
 
 //Orbit Controls
 
-const orbitingCircle = new THREE.CircleGeometry(50,50);
-orbitingCircle.rotateX( - Math.PI / 2);
-orbitingCircle.translate(0,10,0);
-var ppp = new THREE.Mesh(orbitingCircle, m2);
-scene.add(ppp)
-
-function updateCamera(){
-    const time = clock.getElapsedTime();
-    const looptime = 30;
-    const t = ( time % looptime ) / looptime;
-    const t2 = ( (time + 0.1) % looptime) / looptime
-    
-    // const pos = orbitingCircle.parameters.segments.
-    // const pos2 = orbitingCircle.geometry.parameters.path.getPointAt( t2 );
-    
-    // camera.position.copy(pos);
-    // camera.lookAt(pos2);
-}
 
 function animate() {
 	requestAnimationFrame( animate );
-    updateCamera();
+
     interactionManager.update();
     // controls.update();
 	renderer.render( scene, camera );
 };
 
 animate();
-
-
-
-// function update(){
-//     requestAnimationFrame( update );
-//     updateCamera();
-//     renderer.render( scene, camera );  
-// }
