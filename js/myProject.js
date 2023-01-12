@@ -9,9 +9,10 @@ export const scene = new THREE.Scene();
 
 var clock = new THREE.Clock();
 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera(
+    45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-camera.position.set(-50,50,-50);
+camera.position.set(-80,80,-80);
 camera.lookAt(0,0,0);
 
 const renderer = new THREE.WebGLRenderer();
@@ -39,7 +40,7 @@ const interactionManager = new InteractionManager(
 );
 
 var g2 = new THREE.PlaneBufferGeometry(2000, 2000, 8, 8);
-var m2 = new THREE.MeshStandardMaterial({ color: '#a18787', side: THREE.DoubleSide });
+var m2 = new THREE.MeshStandardMaterial({ color: '#2c61d4', side: THREE.DoubleSide });
 var plane = new THREE.Mesh(g2, m2);
 plane.rotateX( - Math.PI / 2);
 plane.translateY(1);
@@ -120,17 +121,16 @@ const torus = new THREE.Mesh( geometry, material );
 torus.rotateX(-Math.PI/2);
 torus.translateZ(50);
 
-
 function UpdateCamera() {    
     const time = clock.getElapsedTime();
     const looptime = 20;
-    const t = ( time % looptime ) / looptime;
-    // const t2 = ( (time + 0.1) % looptime) / looptime
+    const k = 0.3;
+    const f = 100;
     
-    const pos = torus.geometry.parameters.path.getPointAt(t);
-    // const pos2 = curve.getPointAt( t2 );
+    camera.position.x = f*Math.sin( time*k );
+    camera.position.y = f;
+    camera.position.z = f*Math.cos( time*k );
     
-    camera.position.set(pos);
     camera.lookAt(0, 0, 0);
 }
 
@@ -140,7 +140,7 @@ function animate() {
     interactionManager.update();
     controls.update();
     
-    UpdateCamera();
+    if (cPC == 0) UpdateCamera();
     
     renderer.render( scene, camera );
 };
