@@ -2,7 +2,7 @@ import * as THREE from './three.module.js';
 import {OrbitControls} from './OrbitControls.js';
 import {FBXLoader} from './FBXLoader.js';
 import {InteractionManager} from './three.interactive.js';
-import {gsap} from 'gsap';
+// import {gsap} from "gsap";
 
 const container = document.querySelector('#scene-container');
 export const scene = new THREE.Scene();
@@ -114,12 +114,35 @@ fbxLoader.load('../assets/model.fbx', (object) => {
 
 //Orbit Controls
 
+const geometry = new THREE.TorusGeometry( 50, 3, 16, 100 );
+const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const torus = new THREE.Mesh( geometry, material );
+torus.rotateX(-Math.PI/2);
+torus.translateZ(50);
+
+
+function UpdateCamera() {    
+    const time = clock.getElapsedTime();
+    const looptime = 20;
+    const t = ( time % looptime ) / looptime;
+    // const t2 = ( (time + 0.1) % looptime) / looptime
+    
+    const pos = torus.geometry.parameters.path.getPointAt(t);
+    // const pos2 = curve.getPointAt( t2 );
+    
+    camera.position.set(pos);
+    camera.lookAt(0, 0, 0);
+}
+
 function animate() {
 	requestAnimationFrame( animate );
     
     interactionManager.update();
-    // controls.update();
-	renderer.render( scene, camera );
+    controls.update();
+    
+    UpdateCamera();
+    
+    renderer.render( scene, camera );
 };
 
 animate();
