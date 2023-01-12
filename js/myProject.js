@@ -12,7 +12,7 @@ var clock = new THREE.Clock();
 const camera = new THREE.PerspectiveCamera(
     45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-camera.position.set(-80,80,-80);
+camera.position.set(-80,60,-80);
 camera.lookAt(0,0,0);
 
 const renderer = new THREE.WebGLRenderer();
@@ -88,11 +88,6 @@ document.getElementById('next').onclick = function () {
     ChangeView(true);
 }
 
-// window.addEventListener('mousedown',(event) => {
-//     camera.position.set(cPX[cPC%5],cPY[cPC%5],cPZ[cPC%5]);
-//     cPC += 1;
-// });
-
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
     object.traverse( function( node ) {
@@ -115,12 +110,6 @@ fbxLoader.load('../assets/model.fbx', (object) => {
 
 //Orbit Controls
 
-const geometry = new THREE.TorusGeometry( 50, 3, 16, 100 );
-const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-const torus = new THREE.Mesh( geometry, material );
-torus.rotateX(-Math.PI/2);
-torus.translateZ(50);
-
 function UpdateCamera() {    
     const time = clock.getElapsedTime();
     const looptime = 20;
@@ -128,10 +117,15 @@ function UpdateCamera() {
     const f = 100;
     
     camera.position.x = f*Math.sin( time*k );
-    camera.position.y = f;
+    camera.position.y = 50;
     camera.position.z = f*Math.cos( time*k );
     
     camera.lookAt(0, 0, 0);
+}
+
+function CameraTransition(a) {
+
+
 }
 
 function animate() {
