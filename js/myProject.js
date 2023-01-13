@@ -2,8 +2,7 @@ import * as THREE from './three.module.js';
 import {OrbitControls} from './OrbitControls.js';
 import {FBXLoader} from './FBXLoader.js';
 import {InteractionManager} from './three.interactive.js';
-//import { Tween } from 'tween';
-// import {gsap} from "gsap";
+import {gsap} from './gsap/index.js';
 
 const container = document.querySelector('#scene-container');
 export const scene = new THREE.Scene();
@@ -73,10 +72,17 @@ const cPZ = [50,50,-50,-50];
 var cPC = 0;
 
 function ChangeView(a) {
-
-    camera.position.set(cPX[cPC%4],cPY[cPC%4],cPZ[cPC%4]);
-    camera.lookAt(0,0,0);
-
+    
+    gsap.core.Tween.to(camera.position, {
+            x: cPX[cPC%4],
+            y: cPY[cPC%4],
+            z: cPZ[cPC%4],
+            duration: 1,
+            // onUpdate: function() {
+            //     camera.lookAt(0,0,0);
+            // }
+        })
+    
     if (a) cPC += 1;
     else cPC -= 1;
 }
@@ -113,8 +119,7 @@ fbxLoader.load('../assets/model.fbx', (object) => {
 
 function UpdateCamera() {    
     const time = clock.getElapsedTime();
-    const looptime = 20;
-    const k = 0.3;
+    const k = 0.15;
     const f = 100;
     
     camera.position.x = f*Math.sin( time*k );
