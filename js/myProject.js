@@ -2,6 +2,7 @@ import * as THREE from './three.module.js';
 import {OrbitControls} from './OrbitControls.js';
 import {FBXLoader} from './FBXLoader.js';
 import {InteractionManager} from './three.interactive.js';
+//import { Tween } from 'tween';
 // import {gsap} from "gsap";
 
 const container = document.querySelector('#scene-container');
