@@ -72,6 +72,8 @@ const cPZ = [50,50,-50,-50];
 var cPC = 0;
 
 function ChangeView(a) {
+    if (a) cPC += 1;
+    else cPC -= 1;
     
     gsap.core.Tween.to(camera.position, {
             x: cPX[cPC%4],
@@ -83,8 +85,6 @@ function ChangeView(a) {
             // }
         })
     
-    if (a) cPC += 1;
-    else cPC -= 1;
 }
 
 document.getElementById('previous').onclick = function () {
