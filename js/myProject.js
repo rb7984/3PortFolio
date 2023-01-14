@@ -60,15 +60,16 @@ lightPoint.lookAt(0, 0, 0);
 lightPoint.castShadow = true;
 scene.add(lightPoint);
 
-const lightHelper = new THREE.PointLightHelper(lightPoint,2,'#a18787')
-scene.add(lightHelper)
+// const lightHelper = new THREE.PointLightHelper(lightPoint,2,'#a18787')
+// scene.add(lightHelper)
 
 //Controls
 
 const controls = new OrbitControls(camera, renderer.domElement);
-const cPX = [50,-50,-50,50];
-const cPY = [50,50,50,50];
-const cPZ = [50,50,-50,-50];
+const cPX = [50,-60,-50,50];
+const cPY = [50,10,50,50];
+const cPZ = [50,-20,-50,-50];
+const cT = [[-100,6,70],[-100,6,70],[-100,6,70],[0,0,0]]
 var cPC = 0;
 
 function ChangeView(a) {
@@ -80,11 +81,8 @@ function ChangeView(a) {
             y: cPY[cPC%4],
             z: cPZ[cPC%4],
             duration: 1,
-            // onUpdate: function() {
-            //     camera.lookAt(0,0,0);
-            // }
         })
-    
+    camera.lookAt(-100,6,70);
 }
 
 document.getElementById('previous').onclick = function () {
@@ -97,6 +95,25 @@ document.getElementById('next').onclick = function () {
 
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
+    object.traverse( function( node ) {
+        if ( node instanceof THREE.Mesh ) {
+            node.castShadow = true; 
+            node.receiveShadow = true;
+            
+            const oldMat = node.material;
+            
+            node.material = new THREE.MeshStandardMaterial( {  
+                color: oldMat.color,
+                map: oldMat.map,
+            } );
+            
+        } } );
+    
+    scene.add(object)
+}
+);
+
+fbxLoader.load('../assets/p0.fbx', (object) => {
     object.traverse( function( node ) {
         if ( node instanceof THREE.Mesh ) {
             node.castShadow = true; 

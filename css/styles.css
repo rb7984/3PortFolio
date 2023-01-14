@@ -19,6 +19,7 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.btnPrevious,
 .btnNext{
     display: flex;
     justify-content: center;
@@ -28,37 +29,43 @@ body {
     height: 60px;
     right: 50px;
     bottom: 50%;
-    background: #f5f6ff;
+    /* background: #656565;
+    opacity: 50%; */
     z-index: 3;
     border-radius: 30px;
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    transition: all 0.15s linear;
+    /* box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
     rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
     rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
     rgba(0, 0, 0, 0.06) 0px 2px 1px,
     rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px,
     rgba(0, 0, 0, 0.09) 0px 16px 8px,
-    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    rgba(0, 0, 0, 0.09) 0px 32px 16px; */
 }
 
 .btnPrevious{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 60px;
-    height: 60px;
     left: 50px;
-    bottom: 50%;
-    background: #f5f6ff;
+}
+
+.btnNext:hover,
+.btnPrevious:hover {
+    transform: scale(1.5);
+}
+
+.arrow-left,
+.arrow-right{
     z-index: 3;
-    border-radius: 30px;
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
-    rgba(0, 0, 0, 0.06) 0px 2px 1px,
-    rgba(0, 0, 0, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px,
-    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    display: block;
+    margin: 30px auto;
+    width: 25px;
+    height: 25px;
+    border-top: 9px solid rgb(0, 0, 0);
+    border-left: 9px solid rgb(0, 0, 0);
+}
+.arrow-right{
+    transform: rotate(135deg);
+}
+.arrow-left{
+    transform: rotate(-45deg);
 }
