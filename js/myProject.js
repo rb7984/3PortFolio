@@ -2,6 +2,7 @@ import * as THREE from './three.module.js';
 import {FBXLoader} from './FBXLoader.js';
 import {gsap} from './gsap/index.js';
 import {OrbitControls} from './OrbitControls.js';
+import gsapCore from './gsap/gsap-core.js';
 // import {InteractionManager} from './three.interactive.js';
 
 const container = document.querySelector('#scene-container');
@@ -67,26 +68,26 @@ scene.add(lightPoint);
 
 //CONTROLS
 
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 // const cPX = [50,-50,-50,50];
 // const cPY = [50,50,50,50];
 // const cPZ = [50,50,-50,-50];
 
 const cP = [[50,50,50],[-60,7,-20],[-50,50,-50],[50,50,-50]]
-const cT = [[0,0,0],[-40,6,-70],[0,0,0],[0,0,0]]
+const cT = [[0,0,0],[30,6,-20],[0,0,0],[0,0,0]]
 var cPC = 0;
 
 function ChangeView(a) {
     if (a) {cPC += 1;}
     else {cPC -= 1;}
     
-    gsap.core.Tween.to(camera.position, {
-        x: cP[cPC%4][0],
-        y: cP[cPC%4][1],
-        z: cP[cPC%4][2],
-        duration: 1
-    });
-
+    // gsap.core.Tween.to(camera.position, {
+    //     x: cP[cPC%4][0],
+    //     y: cP[cPC%4][1],
+    //     z: cP[cPC%4][2],
+    //     duration: 1
+    // });
+    camera.position.set(cP[cPC%4][0],cP[cPC%4][1],cP[cPC%4][2]);
     camera.lookAt(cT[cPC%4][0],cT[cPC%4][1],cT[cPC%4][2]);
 }
 
@@ -157,9 +158,9 @@ function animate() {
     //INTERACTIONS
     // interactionManager.update();
     //CONTROLS
-    controls.update();
+    // controls.update();
     
-    if (cPC == 0) {UpdateCamera();}
+    // if (cPC == 0) {UpdateCamera();}
     
     renderer.render( scene, camera );
 };
