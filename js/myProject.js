@@ -72,8 +72,8 @@ scene.add(lightPoint);
 // const cPY = [50,50,50,50];
 // const cPZ = [50,50,-50,-50];
 
-const cP = [[50,50,50],[-60,7,-20],[-50,50,-50],[50,50,-50]]
-const cT = [[0,0,0],[30,6,-20],[0,0,0],[0,0,0]]
+const cP = [[50,50,50],[-60,7,-20],[-42,10,3],[50,50,-50]]
+const cT = [[0,0,0],[30,6,-20],[-30,7,-2],[0,0,0]]
 var cPC = 0;
 
 function ChangeView(a) {
@@ -129,6 +129,24 @@ fbxLoader.load('../assets/p0.fbx', (object) => {
             node.material = new THREE.MeshStandardMaterial( {  
                 color: oldMat.color,
                 map: oldMat.map,
+            } );
+            
+        } } );
+    
+    scene.add(object)
+}
+);
+fbxLoader.load('../assets/p1.fbx', (object) => {
+    object.traverse( function( node ) {
+        if ( node instanceof THREE.Mesh ) {
+            node.castShadow = true; 
+            node.receiveShadow = true;
+            
+            const oldMat = node.material;
+            
+            node.material = new THREE.MeshPhongMaterial( {  
+                color: oldMat.color,
+                map: oldMat.map
             } );
             
         } } );
