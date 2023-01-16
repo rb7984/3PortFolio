@@ -2,7 +2,6 @@ import * as THREE from './three.module.js';
 import {FBXLoader} from './FBXLoader.js';
 import {gsap} from './gsap/index.js';
 import {OrbitControls} from './OrbitControls.js';
-import gsapCore from './gsap/gsap-core.js';
 // import {InteractionManager} from './three.interactive.js';
 
 const container = document.querySelector('#scene-container');
@@ -80,15 +79,15 @@ var cPC = 0;
 function ChangeView(a) {
     if (a) {cPC += 1;}
     else {cPC -= 1;}
-    
-    // gsap.core.Tween.to(camera.position, {
-    //     x: cP[cPC%4][0],
-    //     y: cP[cPC%4][1],
-    //     z: cP[cPC%4][2],
-    //     duration: 1
-    // });
-    camera.position.set(cP[cPC%4][0],cP[cPC%4][1],cP[cPC%4][2]);
-    camera.lookAt(cT[cPC%4][0],cT[cPC%4][1],cT[cPC%4][2]);
+    gsap.to(camera.position, {
+        x: cP[cPC%4][0],
+        y: cP[cPC%4][1],
+        z: cP[cPC%4][2],
+        duration: 1,
+        onUpdate: function () {
+            camera.lookAt(cT[cPC%4][0],cT[cPC%4][1],cT[cPC%4][2]);
+        }
+    });
 }
 
 document.getElementById('previous').onclick = function () {
@@ -160,7 +159,7 @@ function animate() {
     //CONTROLS
     // controls.update();
     
-    // if (cPC == 0) {UpdateCamera();}
+    if (cPC == 0) {UpdateCamera();}
     
     renderer.render( scene, camera );
 };
