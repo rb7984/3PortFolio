@@ -60,10 +60,15 @@ light.castShadow = true;
 scene.add(light);
 
 const lightPoint = new THREE.PointLight( 0xc9e4ff, 1 );
-lightPoint.position.set(0, 100,0);
-lightPoint.lookAt(0, 0, 0);
+lightPoint.position.set(0, 60, 0);
 lightPoint.castShadow = true;
+lightPoint.shadow.camera.near = 1;
+lightPoint.shadow.camera.far = 500;
+lightPoint.shadow.bias = - 0.002;
+lightPoint.shadow.mapSize.set( 1600, 1600 );
+
 scene.add(lightPoint);
+// scene.add( new THREE.CameraHelper( lightPoint.shadow.camera ) );
 
 //CONTROLS
 
@@ -72,8 +77,8 @@ scene.add(lightPoint);
 // const cPY = [50,50,50,50];
 // const cPZ = [50,50,-50,-50];
 
-const cP = [[50,50,50],[-60,7,-20],[-42,10,3],[50,50,-50]]
-const cT = [[0,0,0],[30,6,-20],[-30,7,-2],[0,0,0]]
+const cP = [[50,50,50],[-60,7,-20],[-42,10,3],[-5,35,5]]
+const cT = [[0,0,0],[20,6,-35],[-30,7,-2],[40,35,40]]
 var cPC = 0;
 
 function ChangeView(a) {
@@ -136,6 +141,7 @@ fbxLoader.load('../assets/p0.fbx', (object) => {
     scene.add(object)
 }
 );
+
 fbxLoader.load('../assets/p1.fbx', (object) => {
     object.traverse( function( node ) {
         if ( node instanceof THREE.Mesh ) {
@@ -144,7 +150,45 @@ fbxLoader.load('../assets/p1.fbx', (object) => {
             
             const oldMat = node.material;
             
-            node.material = new THREE.MeshPhongMaterial( {  
+            node.material = new THREE.MeshStandardMaterial( {  
+                color: oldMat.color,
+                map: oldMat.map
+            } );
+            
+        } } );
+    
+    scene.add(object)
+}
+);
+
+fbxLoader.load('../assets/p2.fbx', (object) => {
+    object.traverse( function( node ) {
+        if ( node instanceof THREE.Mesh ) {
+            node.castShadow = true; 
+            node.receiveShadow = true;
+            
+            const oldMat = node.material;
+            
+            node.material = new THREE.MeshStandardMaterial( {  
+                color: oldMat.color,
+                map: oldMat.map
+            } );
+            
+        } } );
+    
+    scene.add(object)
+}
+);
+
+fbxLoader.load('../assets/prop.fbx', (object) => {
+    object.traverse( function( node ) {
+        if ( node instanceof THREE.Mesh ) {
+            node.castShadow = true; 
+            node.receiveShadow = true;
+            
+            const oldMat = node.material;
+            
+            node.material = new THREE.MeshStandardMaterial( {  
                 color: oldMat.color,
                 map: oldMat.map
             } );
