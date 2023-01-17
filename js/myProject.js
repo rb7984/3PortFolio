@@ -195,6 +195,8 @@ fbxLoader.load('../assets/prop.fbx', (object) => {
             
         } } );
     
+    gsap.to(object.position, {x: 0, y: 25, z: 10, duration: 5, stagger:{ each: 0.15, yoyo: true, repeat: -1 }, ease: "sine.inOut"});
+    
     scene.add(object)
 }
 );
