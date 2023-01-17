@@ -16,7 +16,7 @@ const camera = new THREE.PerspectiveCamera(
     1000
 );
 
-camera.position.set(50,50,50);
+camera.position.set(-50,50,-50);
 camera.lookAt(0,0,0);
 
 const renderer = new THREE.WebGLRenderer();
@@ -72,7 +72,7 @@ scene.add(lightPoint);
 
 //CONTROLS
 
-//const controls = new OrbitControls(camera, renderer.domElement);
+// const controls = new OrbitControls(camera, renderer.domElement);
 // const cPX = [50,-50,-50,50];
 // const cPY = [50,50,50,50];
 // const cPZ = [50,50,-50,-50];
@@ -195,7 +195,7 @@ fbxLoader.load('../assets/prop.fbx', (object) => {
             
         } } );
     
-    gsap.to(object.position, {x: 0, y: 25, z: 10, duration: 5, stagger:{ each: 0.15, yoyo: true, repeat: -1 }, ease: "sine.inOut"});
+    gsap.to(object.position, {x: 5, y: 18, z: 23.5, duration: 6, stagger:{ each: 0.15, yoyo: true, repeat: -1 }, ease: "sine.inOut"});
     
     scene.add(object)
 }
@@ -204,7 +204,7 @@ fbxLoader.load('../assets/prop.fbx', (object) => {
 //Orbit Controls
 
 function UpdateCamera() {    
-    const time = clock.getElapsedTime();
+    const time = clock.getElapsedTime()+20;
     const k = 0.15;
     const f = 100;
     
