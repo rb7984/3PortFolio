@@ -82,10 +82,14 @@ const cT = [[0,0,0],[20,6,-35],[-30,7,-2],[40,35,40]]
 var cPC = 0;
 
 function ChangeView(a) {
+    //FIX oldEL
+    var oldEl = 'p' + cPC.toString();
     if (a) {cPC += 1;}
-    else {cPC -= 1;}
+    else {cPC -= 1;}    
+    var currentEl = 'p' + cPC.toString();
+    
     gsap.to(camera.position, {
-        x: cP[cPC%4][0],
+        x: cP[cPC%4][0], 
         y: cP[cPC%4][1],
         z: cP[cPC%4][2],
         duration: 1,
@@ -93,6 +97,9 @@ function ChangeView(a) {
             camera.lookAt(cT[cPC%4][0],cT[cPC%4][1],cT[cPC%4][2]);
         }
     });
+    
+    document.getElementById(oldEl).className = 'p hidden';
+    document.getElementById(currentEl).className = 'p visible';
 }
 
 document.getElementById('previous').onclick = function () {
@@ -116,7 +123,7 @@ fbxLoader.load('../assets/model.fbx', (object) => {
                 color: oldMat.color,
                 map: oldMat.map,
             } );
-            
+        
         } } );
     
     scene.add(object)
