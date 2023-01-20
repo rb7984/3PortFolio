@@ -65,36 +65,31 @@ lightPoint.castShadow = true;
 lightPoint.shadow.camera.near = 1;
 lightPoint.shadow.camera.far = 500;
 lightPoint.shadow.bias = - 0.002;
-lightPoint.shadow.mapSize.set( 1600, 1600 );
+lightPoint.shadow.mapSize.set( 2048, 2048 );
 
 scene.add(lightPoint);
-// scene.add( new THREE.CameraHelper( lightPoint.shadow.camera ) );
 
 //CONTROLS
 
 // const controls = new OrbitControls(camera, renderer.domElement);
-// const cPX = [50,-50,-50,50];
-// const cPY = [50,50,50,50];
-// const cPZ = [50,50,-50,-50];
 
 const cP = [[50,50,50],[-60,7,-20],[-42,10,3],[-5,35,5]]
 const cT = [[0,0,0],[20,6,-35],[-30,7,-2],[40,35,40]]
 var cPC = 0;
 
 function ChangeView(a) {
-    //FIX oldEL
-    var oldEl = 'p' + cPC.toString();
+    var oldEl = 'p' + (cPC%cP.length).toString();
     if (a) {cPC += 1;}
     else {cPC -= 1;}    
-    var currentEl = 'p' + cPC.toString();
+    var currentEl = 'p' + (cPC%cP.length).toString();
     
     gsap.to(camera.position, {
-        x: cP[cPC%4][0], 
-        y: cP[cPC%4][1],
-        z: cP[cPC%4][2],
+        x: cP[cPC%cP.length][0], 
+        y: cP[cPC%cP.length][1],
+        z: cP[cPC%cP.length][2],
         duration: 1,
         onUpdate: function () {
-            camera.lookAt(cT[cPC%4][0],cT[cPC%4][1],cT[cPC%4][2]);
+            camera.lookAt(cT[cPC%cP.length][0],cT[cPC%cP.length][1],cT[cPC%cP.length][2]);
         }
     });
     
@@ -230,7 +225,7 @@ function animate() {
     //CONTROLS
     // controls.update();
     
-    if (cPC == 0) {UpdateCamera();}
+    if (cPC%cP.length == 0) {UpdateCamera();}
     
     renderer.render( scene, camera );
 };
