@@ -105,15 +105,15 @@ document.getElementById('next').onclick = function () {
     ChangeView(true);
 }
 
-var pages = document.getElementsByClassName('projectButton');
+const pages = document.getElementsByClassName('projectButton');
 
-for(let a in pages.length)
-{
-    pages[a].onclick = function () {
-        b = document.getElementById('page'+a.toString());
-        b.className = 'projectPage visible';
+// for(let a in pages.length)
+// {
+    pages[0].onclick = function () {
+        let pageId = 'page' + (1).toString();     
+        document.getElementById(pageId).className = 'projectPage visible';
     }
-}
+// }
 
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
