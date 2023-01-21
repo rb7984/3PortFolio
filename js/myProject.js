@@ -105,6 +105,16 @@ document.getElementById('next').onclick = function () {
     ChangeView(true);
 }
 
+var pages = document.getElementsByClassName('projectButton');
+
+for(let a in pages.length)
+{
+    pages[a].onclick = function () {
+        b = document.getElementById('page'+a.toString());
+        b.className = 'projectPage visible';
+    }
+}
+
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
     object.traverse( function( node ) {
