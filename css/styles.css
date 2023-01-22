@@ -48,15 +48,18 @@ body {
 }
 
 .projectPage{
+    font-family: 'Poppins', sans-serif;
+    color:blanchedalmond;
     display: flex;
+    flex-direction: column;
     /* justify-content: center;
     align-items: center;*/
     position: absolute; 
     z-index: 3;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: black;
-    opacity: 20;
+    opacity: 0.9;
 }
 
 .btnPrevious,
@@ -78,6 +81,7 @@ body {
     margin: 15px;
     padding: 8px;
     background: #adacac;
+    opacity: 1;
     /* opacity: 80%; */
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
@@ -88,7 +92,23 @@ body {
     rgba(0, 0, 0, 0.09) 0px 8px 4px,
     rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
 
+.closeButton{
+    /* margin: 15px; */
+    z-index: 4;
+    color: black;
+    position: fixed;
+    display: flex;
+    top: 5%;
+    right: 5%;
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    background: #adacac;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .btnPrevious{

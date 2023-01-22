@@ -77,6 +77,9 @@ const cP = [[50,50,50],[-60,7,-20],[-42,10,3],[-5,35,5]]
 const cT = [[0,0,0],[20,6,-35],[-30,7,-2],[40,35,40]]
 var cPC = 0;
 
+
+// CHANGE VIEW
+
 function ChangeView(a) {
     var oldEl = 'p' + (cPC%cP.length).toString();
     if (a) {cPC += 1;}
@@ -105,6 +108,8 @@ document.getElementById('next').onclick = function () {
     ChangeView(true);
 }
 
+// OPEN AND CLOSE BUTTONS
+
 const pages = document.getElementsByClassName('projectButton');
 
 // for(let a in pages.length)
@@ -114,6 +119,13 @@ const pages = document.getElementsByClassName('projectButton');
         document.getElementById(pageId).className = 'projectPage visible';
     }
 // }
+
+const closeButtons = document.getElementsByClassName('closeButton');
+
+closeButtons[0].onclick = function () {
+    let pageId = 'page' + (1).toString();     
+    document.getElementById(pageId).className = 'projectPage hidden';
+}
 
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
