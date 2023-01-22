@@ -112,21 +112,23 @@ document.getElementById('next').onclick = function () {
 
 const pages = document.getElementsByClassName('projectButton');
 
-// for(let a in pages.length)
-// {
-    pages[0].onclick = function () {
-        let pageId = 'page' + (1).toString();     
+for(let i = 0; i < pages.length; i++)
+{
+    pages[i].onclick = function () {
+        let pageId = 'page' + (i+1).toString();     
         document.getElementById(pageId).className = 'projectPage visible';
     }
-// }
+}
 
 const closeButtons = document.getElementsByClassName('closeButton');
 
-closeButtons[0].onclick = function () {
-    let pageId = 'page' + (1).toString();     
-    document.getElementById(pageId).className = 'projectPage hidden';
+for(let i = 0; i < closeButtons.length; i++)
+{
+    closeButtons[i].onclick = function () {
+        let pageId = 'page' + (i+1).toString();     
+        document.getElementById(pageId).className = 'projectPage hidden';
+    }
 }
-
 const fbxLoader = new FBXLoader();
 fbxLoader.load('../assets/model.fbx', (object) => {
     object.traverse( function( node ) {
