@@ -1,8 +1,10 @@
 import * as THREE from './three.module.js';
 import {FBXLoader} from './FBXLoader.js';
 import {gsap} from './gsap/index.js';
-import {OrbitControls} from './OrbitControls.js';
+// import {OrbitControls} from './OrbitControls.js';
 // import {InteractionManager} from './three.interactive.js';
+
+//SETUP
 
 const container = document.querySelector('#scene-container');
 export const scene = new THREE.Scene();
@@ -27,7 +29,7 @@ renderer.setClearColor("#ededed");
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
 container.append(renderer.domElement);
-//document.body.appendChild( renderer.domElement );
+// document.body.appendChild( renderer.domElement );
 
 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -55,11 +57,14 @@ scene.add(plane);
 
 //LIGHTS
 
-const light = new THREE.AmbientLight( 0xdedede, 1.5);
+var light = new THREE.AmbientLight( 0xdedede, 1.5);
 light.castShadow = true;
 scene.add(light);
 
-const lightPoint = new THREE.PointLight( 0xc9e4ff, 1 );
+var lightPointState = true;
+const lightIcons = {true: 'sun',false: 'moon'};
+
+var lightPoint = new THREE.PointLight( 0xc9e4ff, 1 );
 lightPoint.position.set(0, 60, 0);
 lightPoint.castShadow = true;
 lightPoint.shadow.camera.near = 1;
@@ -69,6 +74,50 @@ lightPoint.shadow.mapSize.set( 2048, 2048 );
 
 scene.add(lightPoint);
 
+function Night(a)
+{
+    var dur = 1;
+        
+    if (a)
+    {
+        gsap.to(lightPoint, {
+            intensity: 0.1,
+            duration: dur
+        });
+        gsap.to(light, {
+            intensity: 0.8,
+            duration: dur
+        });
+        gsap.to(document.getElementById('moon'), {
+            className: lightIcons[lightPointState],
+            duration: dur
+        })
+    }
+    else
+    {
+        gsap.to(lightPoint, {
+            intensity: 1,
+            duration: dur
+        });
+        gsap.to(light, {
+            intensity: 1.5,
+            duration: dur
+        });
+        gsap.to(document.getElementById('moon'), {
+            className: lightIcons[lightPointState],
+            duration: dur
+        })
+    }
+    
+    lightPointState = !a;
+}
+
+document.getElementById('night').onclick = function() {
+    Night(lightPointState);
+    // document.getElementById('moon').className= lightIcons[!lightPointState];
+}
+
+
 //CONTROLS
 
 // const controls = new OrbitControls(camera, renderer.domElement);
@@ -76,7 +125,6 @@ scene.add(lightPoint);
 const cP = [[50,50,50],[-60,7,-20],[-42,10,3],[-5,35,5]]
 const cT = [[0,0,0],[20,6,-35],[-30,7,-2],[40,35,40]]
 var cPC = 0;
-
 
 // CHANGE VIEW
 

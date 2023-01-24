@@ -62,6 +62,7 @@ body {
     /* opacity: 0.9; */
 }
 
+.btnNight,
 .btnPrevious,
 .btnNext{
     display: flex;
@@ -75,6 +76,56 @@ body {
     z-index: 1;
     border-radius: 30px;
     transition: all 0.15s linear;
+}
+
+.btnPrevious{
+    left: 50px;
+}
+
+.btnNight{
+    background-color: rgb(70, 70, 70);
+    bottom: 50px;
+    right: 50px;
+    box-shadow: 0 0 10px 4px #ffffff;
+}
+
+.btnNext:hover,
+.btnPrevious:hover {
+    transform: scale(1.5);
+}
+
+.arrow-left,
+.arrow-right{
+    z-index: 1;
+    display: block;
+    margin: 30px auto;
+    width: 25px;
+    height: 25px;
+    border-top: 9px solid rgb(0, 0, 0);
+    border-left: 9px solid rgb(0, 0, 0);
+}
+.arrow-right{
+    transform: rotate(135deg);
+}
+.arrow-left{
+    transform: rotate(-45deg);
+}
+
+.moon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 9px 9px 0 0 #fff77e;
+    position: relative;
+    right: 17%;
+    bottom: 17%;
+}
+
+.sun {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff77e;
 }
 
 .projectButton{
@@ -109,30 +160,4 @@ body {
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-}
-
-.btnPrevious{
-    left: 50px;
-}
-
-.btnNext:hover,
-.btnPrevious:hover {
-    transform: scale(1.5);
-}
-
-.arrow-left,
-.arrow-right{
-    z-index: 1;
-    display: block;
-    margin: 30px auto;
-    width: 25px;
-    height: 25px;
-    border-top: 9px solid rgb(0, 0, 0);
-    border-left: 9px solid rgb(0, 0, 0);
-}
-.arrow-right{
-    transform: rotate(135deg);
-}
-.arrow-left{
-    transform: rotate(-45deg);
 }
